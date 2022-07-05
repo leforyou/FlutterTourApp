@@ -1,0 +1,44 @@
+安卓证书配置教程：
+https://www.jianshu.com/p/fc752188df3a
+
+
+证书解密密码：123456
+
+
+
+密钥库类型: JKS
+密钥库提供方: SUN
+
+您的密钥库包含 1 个条目
+
+别名: androidname
+创建日期: 2022-7-1
+条目类型: PrivateKeyEntry
+证书链长度: 1
+证书[1]:
+所有者: CN=Li, OU=BM, O=BM, L=GD, ST=GD, C=CN
+发布者: CN=Li, OU=BM, O=BM, L=GD, ST=GD, C=CN
+序列号: 191231fb
+有效期开始日期: Fri Jul 01 14:10:52 CST 2022, 截止日期: Sun Jun 07 14:10:52 CST 2122
+证书指纹:
+         MD5: F3:F8:C7:55:E1:F0:69:17:A1:10:7D:D6:3D:BE:AF:25
+         SHA1: 29:CA:68:4D:4A:04:8A:45:CD:A1:09:B3:77:64:73:98:66:BC:E6:75
+         SHA256: 34:D1:78:CC:C6:F7:CF:4B:7C:6B:61:08:50:7A:8B:67:C8:87:77:F0:5B:32:50:01:8B:5B:79:B8:BD:A0:D6:CA
+         签名算法名称: SHA256withRSA
+         版本: 3
+
+扩展:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: BA 60 4C 06 6C CE 26 5A   FE 25 8C 95 71 43 44 C8  .`L.l.&Z.%..qCD.
+0010: 9F 82 28 4C                                        ..(L
+]
+]
+
+
+
+*******************************************
+*******************************************
+
