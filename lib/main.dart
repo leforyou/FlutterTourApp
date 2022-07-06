@@ -13,14 +13,55 @@ Scaffold：主要可以设置：
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_study/src/views/startPage/StartPage.dart'; //启动页面
+import 'package:flutter_app_study/src/views/startPage/StartPage.dart';
+import 'package:flutter_app_study/src/views/tabNavigationBar/TabNavigationBar.dart'; //启动页面
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  //初始化执行
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this); //添加观察者
+  }
+
+//部件销毁执行
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); //添加观察者
+    super.dispose();
+  }
+
+  //WidgetsBindingObserver:应用前后台切换监听
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('@@@@@@@@@@@@@ ${state} @@@@@@@@@@@@@');
+    switch (state) {
+      case AppLifecycleState.inactive:
+        //应用程序处于闲置状态并且没有收到用户的输入事件。
+        //注意这个状态，在切换到后台时候会触发，所以流程应该是先冻结窗口，然后停止UI
+        break;
+      case AppLifecycleState.paused:
+        //应用程序处于不可见状态
+        break;
+      case AppLifecycleState.resumed:
+        //进入应用时候不会触发该状态
+        //应用程序处于可见状态，并且可以响应用户的输入事件。它相当于 Android 中Activity的onResume。
+        break;
+      case AppLifecycleState.detached:
+        //当前页面即将退出
+        break;
+    }
+  }
 
   //根部件 This widget is the root of your application.
   @override
@@ -28,16 +69,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Study',
       //地点
-      locale: Locale('zh', 'CH'),
-      //支持区域
-      supportedLocales: [
-        const Locale('zh', 'CH'),
-      ],
+      locale: const Locale('zh', 'CN'),
+      //国际化,多语言配置
+      // supportedLocales: [
+      //   const Locale('en', 'US'), // 美国英语
+      //   const Locale('zh', 'CN'), // 中文简体
+      // ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       //启动APP后，进入启动页面，3秒后进入首页
-      home: StartPage(),
+      home: TabNavigationBar(),
+      //home: StartPage(),
       //初始路由，当用户进入程序时，自动打开对应的路由
       initialRoute: '',
       //路由集合
@@ -50,17 +93,17 @@ class MyApp extends StatelessWidget {
       onUnknownRoute: (context) {
         return null;
       },
-      //debug模式下是否显示材质风格。默认值：
+      //debug模式下是否显示材质风格。默认值：false
       debugShowMaterialGrid: false,
-      //当为true时，页面顶部覆盖一层GPU各UI曲线图，可查看当前的流畅度
+      //当为true时，页面顶部覆盖一层GPU各UI曲线图，可查看当前的流畅度。默认值：false
       showPerformanceOverlay: false,
-      //当为true时，打开光栅缓存图像的棋盘格
+      //当为true时，打开光栅缓存图像的棋盘格。默认值：false
       checkerboardRasterCacheImages: false,
-      //当为true时，打开呈现到屏幕位图的层的棋盘格
+      //当为true时，打开呈现到屏幕位图的层的棋盘格。默认值：false
       checkerboardOffscreenLayers: false,
-      //当为true时，打开widget边框，类似Android开发者模式中显示布局边界
+      //当为true时，打开widget边框，类似Android开发者模式中显示布局边界。默认值：false
       showSemanticsDebugger: false,
-      //当为true时，在debug模式下显示右上角的debug字样斜横幅，false为不显示
+      //当为true时，在debug模式下显示右上角的debug字样斜横幅，false为不显示。默认值：true
       debugShowCheckedModeBanner: true,
     );
   }

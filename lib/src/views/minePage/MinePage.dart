@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class MinePage extends StatefulWidget {
-  const MinePage({Key? key}) : super(key: key);
+  MinePage({Key? key}) : super(key: key);
+
+  final _MinePageState instance = _MinePageState(); //初始化实例
+
   @override
-  State<StatefulWidget> createState() => _MinePageState();
+  State<StatefulWidget> createState() => instance;
+
+  //可从另一个外部类调用有状态Widgets状态类中的函数
+  _MinePageState getInstance() => instance;
 }
 
 class _MinePageState extends State<MinePage> {
@@ -11,7 +17,11 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('我的')),
-      body: Text('我是 个人中心'),
+      body: Column(
+        children: [
+          Text('我是 个人中心'),
+        ],
+      ),
     );
   }
 }
