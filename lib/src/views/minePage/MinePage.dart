@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_study/src/views/Test1/Test1.dart';
 
 class MinePage extends StatefulWidget {
   MinePage({Key? key}) : super(key: key);
@@ -17,10 +18,19 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('我的')),
-      body: Column(
-        children: [
-          Text('我是 个人中心'),
-        ],
+      body: Container(
+        child: GestureDetector(
+          child: SizedBox(
+            height: 200,
+            child: Center(
+              child: Text('Test1Page'),
+            ),
+          ),
+          onTap: () {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => Test1Page()));
+          },
+        ),
       ),
     );
   }

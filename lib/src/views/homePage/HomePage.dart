@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_study/src/utils/DevicesUtils.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   //初始化执行
   @override
   void initState() {
+    DevicesUtils a = DevicesUtils();
     print("@@@@@@@@@@@@@@@@@@@ 首页initState函数被调用了");
     super.initState();
 
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('首页')),
+      //appBar: AppBar(title: const Text('首页')),
       backgroundColor: Colors.amber,
       body: SingleChildScrollView(
         controller: _scrollController,
@@ -56,14 +58,16 @@ class _HomePageState extends State<HomePage> {
         //1.ClampingScrollPhysics：Android下微光效果，2.BouncingScrollPhysics：iOS下弹性效果
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(0),
-        child: Container(
+        //SafeArea安全区域：适配现在一些刘海屏之类的非常规显示屏
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              SizedBox(height: 100),
+              //SizedBox(height: 100),
               Container(
                 height: 500,
-                child: Text('我是首页${count}'),
+                child: Text(
+                    '我是首页${count} ${DevicesUtils.isPlatform('android')}== ${DevicesUtils.viewHeight(null, false)} == ${DevicesUtils.screenHeight()}=== ${DevicesUtils.screenWidth(context)}'),
               ),
               SizedBox(
                 height: 309,
