@@ -1,6 +1,8 @@
 import 'dart:async'; //定时器需要引用该依懒
 
 import 'package:flutter/material.dart';
+import '/src/views/tabNavigationBar/TabNavigationBar.dart';
+import '/src/router/AppRouter.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class _StartPageState extends State<StartPage> {
       如果这个变量没有被使用的话就不会被初始化，初始化语句不会执行。
   */
   late Timer _timer; //定时器变量
+  late BuildContext _context;
   //生命周期函数
   @override
   void initState() {
@@ -35,13 +38,19 @@ class _StartPageState extends State<StartPage> {
   void _jumpToHomePage() {
     _timer = Timer(Duration(seconds: 1), () {
       //到时回调
-      print('@@@@@@@@@@@@@@@@@  afterTimer=' + DateTime.now().toString());
+      AppRouter.closeAllPage(
+        _context,
+        TabNavigationBar(currentIndex: 1), //关闭所有页面，跳转到首页
+      );
+
+      //print('@@@@@@@@@@@@@@@@@  afterTimer=' + DateTime.now().toString());
     });
   }
 
   //页面部件
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Container(
       decoration: BoxDecoration(
         color: Colors.blue,
@@ -70,12 +79,13 @@ class _StartPageState extends State<StartPage> {
               size: 90,
               color: Colors.white,
             ),
-            Text(
-              'LOGO',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+            SizedBox(height: 10),
+            // Text(
+            //   'LOGO',
+            //   style: TextStyle(
+            //     color: Colors.white,
+            //   ),
+            // ),
             //字体渐变色
             ShaderMask(
               shaderCallback: (Rect bounds) {
@@ -90,7 +100,8 @@ class _StartPageState extends State<StartPage> {
               blendMode: BlendMode.srcATop,
               child: Center(
                 child: Text(
-                  '一场说走就走的旅行\n一份随遇而安的心境',
+                  'LOGO',
+                  // '一场说走就走的旅行\n一份随遇而安的心境',
                   style: TextStyle(fontSize: 22),
                 ),
               ),

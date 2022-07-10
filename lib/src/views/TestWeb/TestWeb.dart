@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_study/src/router/AppRouter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TestWebPage extends StatefulWidget {
@@ -30,9 +31,24 @@ class _TestWebPageState extends State<TestWebPage> {
           ),
         ),
         onTap: () async {
-          final Uri _url =
-              Uri.parse('https://flutter.cn'); //https://cn.bing.com/
-          if (!await launchUrl(_url)) throw 'Could not launch $_url';
+          // Navigator.of(context)
+          //   ..pop()
+          //   ..pop('66666666666666666');
+          // AppRouter
+          //   ..pop(context, 999991)
+          //   ..pop(context, 99999299)
+          //   ..pop(context, 999993)
+          //   ..pop(context, 88888);
+          // Navigator.of(context).maybePop(88888888888888);
+          // Navigator.of(context).pop(5555555555);
+          // Navigator.of(context).maybePop();
+          // Navigator.of(context).maybePop();
+          AppRouter.pathCloseAllPage(
+              context, '/', {"444444444": 4444444444444});
+          //AppRouter.back(context, 'TabNavigationBar');
+          // final Uri _url =
+          //     Uri.parse('https://flutter.cn'); //https://cn.bing.com/
+          // if (!await launchUrl(_url)) throw 'Could not launch $_url';
         },
       ),
     );

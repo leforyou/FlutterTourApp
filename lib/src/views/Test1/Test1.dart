@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_study/src/router/AppRouter.dart';
 import 'package:flutter_app_study/src/views/TestWeb/TestWeb.dart';
+
+import '../tabNavigationBar/TabNavigationBar.dart';
 
 class Test1Page extends StatefulWidget {
   Test1Page({Key? key}) : super(key: key);
@@ -14,10 +17,21 @@ class Test1Page extends StatefulWidget {
 }
 
 class _Test1PageState extends State<Test1Page> {
+  //初始化执行
+  @override
+  void initState() {
+    //DevicesUtils a = DevicesUtils();
+    print("@@@@@@@@@@@@@@@@@@@ Test1Page   initState函数被调用了");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    print("@@@@@@@@@@@@@@@@@@@ arguments  $arguments");
     return Scaffold(
       appBar: AppBar(title: Text('Test1')),
+      backgroundColor: Colors.amberAccent,
       body: GestureDetector(
         child: SizedBox(
           height: 200,
@@ -26,8 +40,11 @@ class _Test1PageState extends State<Test1Page> {
           ),
         ),
         onTap: () {
-          Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => TestWebPage()));
+          //AppRouter.push(context, TabNavigationBar(currentIndex: 0));
+          AppRouter.push(context, TestWebPage());
+          //return;
+          // Navigator.push(context,
+          //     new MaterialPageRoute(builder: (context) => TestWebPage()));
         },
       ),
     );

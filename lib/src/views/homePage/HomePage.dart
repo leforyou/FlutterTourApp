@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   //初始化执行
   @override
   void initState() {
-    DevicesUtils a = DevicesUtils();
+    //DevicesUtils a = DevicesUtils();
     print("@@@@@@@@@@@@@@@@@@@ 首页initState函数被调用了");
     super.initState();
 
@@ -48,6 +48,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Object arguments = ModalRoute.of(context)?.settings.arguments ?? {};
+    print("@@@@@@@@@@@@@@@@@@@  首页 arguments  $arguments");
     return Scaffold(
       //appBar: AppBar(title: const Text('首页')),
       backgroundColor: Colors.amber,
@@ -64,6 +66,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               //SizedBox(height: 100),
+              Text('主题，获取定位，状态管理，音乐，视频'),
               Container(
                 height: 500,
                 child: Text(

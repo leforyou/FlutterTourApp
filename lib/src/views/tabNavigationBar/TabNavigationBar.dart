@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_study/src/views/homePage/HomePage.dart';
 import 'package:flutter_app_study/src/views/minePage/MinePage.dart';
 
+//用法：TabNavigationBar(currentIndex: 0);//可选currentIndex: 0首页,1我的
 class TabNavigationBar extends StatefulWidget {
-  const TabNavigationBar({Key? key}) : super(key: key);
+  final int currentIndex;
+
+  const TabNavigationBar({
+    Key? key,
+    this.currentIndex = 0,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _TabNavigationBarState();
 }
@@ -22,10 +28,11 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
   */
 
   List allPages = [HomePage(), MinePage()]; //方法一
-  int _currentIndex = 0;
+  late int _currentIndex;
   @override
   void initState() {
     super.initState();
+    _currentIndex = widget.currentIndex;
   }
 
   @override

@@ -13,8 +13,9 @@ Scaffold：主要可以设置：
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_study/src/views/startPage/StartPage.dart';
-import 'package:flutter_app_study/src/views/tabNavigationBar/TabNavigationBar.dart'; //启动页面
+import 'src/views/startPage/StartPage.dart'; //启动页面
+import 'src/router/RouterConfig.dart';
+import 'src/views/tabNavigationBar/TabNavigationBar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -73,25 +74,33 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       //国际化,多语言配置
       // supportedLocales: [
       //   const Locale('en', 'US'), // 美国英语
-      //   const Locale('zh', 'CN'), // 中文简体
+      //   const Locale('zh', 'CH'), // 中文简体
       // ],
+      //全局主题风格
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       //启动APP后，进入启动页面，3秒后进入首页
-      home: TabNavigationBar(),
+      //home: TabNavigationBar(),
       //home: StartPage(),
+      //全局存储导航的状态
+      navigatorKey: GlobalKey<NavigatorState>(),
       //初始路由，当用户进入程序时，自动打开对应的路由
-      initialRoute: '',
-      //路由集合
-      //routes: {},
-      //生成路由：路由回调函数，当通过Nacigator.of(context).pushNamed跳转路由时，在routes查找不到时，会调用该方法
-      onGenerateRoute: (context) {
+      initialRoute: RouterConfig.initialRoute,
+      //路由集合。注意：配置了routes，onGenerateRoute不会执行。
+      //routes: RouterConfig.routes(),
+      //当初home或者 initialRoute路由的名字写错、为空时，或者下面的路由找不到页面了， onGenerateRoute强制创建一个路由页面，默认连接到新的路由页面上
+      onGenerateRoute: RouterConfig.onGenerateRoute,
+      // onGenerateRoute: (RouteSettings settings) {
+      //   print("========================路由管理拦截器-----onGenerateRoute $settings");
+      //   return null;
+      //   //return RouterConfig.onGenerateRoute;
+      // },
+      //未知路由 当onGenerateRoute无法生成路由时调用，当通过Nacigator.of(context).pushNamed();跳转路由时，在routes查找不到时，会调用该方法
+      onUnknownRoute: (RouteSettings settings) {
+        print("@@@@@@@@@@@@@@@@@@页面404-----onUnknownRoute $settings");
         return null;
-      },
-      //未知路由：路由回调函数，当通过Nacigator.of(context).pushNamed跳转路由时，在routes查找不到时，会调用该方法
-      onUnknownRoute: (context) {
-        return null;
+        //return MaterialPageRoute(builder: (context) => page());
       },
       //debug模式下是否显示材质风格。默认值：false
       debugShowMaterialGrid: false,

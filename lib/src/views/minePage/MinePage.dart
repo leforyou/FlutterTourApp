@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_study/src/router/AppRouter.dart';
 import 'package:flutter_app_study/src/views/Test1/Test1.dart';
 
 class MinePage extends StatefulWidget {
@@ -27,8 +28,16 @@ class _MinePageState extends State<MinePage> {
             ),
           ),
           onTap: () {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => Test1Page()));
+            //AppRouter.pathReplace(context, '/Test1', {});
+            AppRouter.pathPush(context, '/Test1').then((value) {
+              print('@@@@@@@@@@@@@@@@@@@@@@@  返回时传的参数66666 $value');
+            });
+            //Navigator.pushNamed(context, '/Test1', arguments: {"name": "张三"});
+            // AppRouter.push(context, Test1Page()).then((value) {
+            //   print('@@@@@@@@@@@@@@@@@@@@@@@  返回时传的参数 $value');
+            // });
+            // Navigator.push(context,
+            //     new MaterialPageRoute(builder: (context) => Test1Page()));
           },
         ),
       ),
