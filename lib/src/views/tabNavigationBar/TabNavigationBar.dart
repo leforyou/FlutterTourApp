@@ -27,7 +27,7 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
   */
 
-  List allPages = [HomePage(), MinePage()]; //方法一
+  List<Widget> allPages = [HomePage(), MinePage()]; //方法一
   late int _currentIndex;
   @override
   void initState() {
@@ -43,10 +43,7 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
       //方法二（保持页面状态）
       body: IndexedStack(
         index: _currentIndex,
-        children: [
-          allPages[0],
-          allPages[1],
-        ],
+        children: allPages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -101,11 +98,9 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
           setState(() {
             print("the index is :$index");
             _currentIndex = index;
-
-            // var instance = HomePage();
-            // instance.AAAAAAAAAAA888888888();
             if (_currentIndex == 0) {
-              (allPages[_currentIndex]).getInstance()?.SwitchRefresh();
+              dynamic _page = allPages[_currentIndex];
+              _page?.getInstance()?.SwitchRefresh();
             }
           });
         },

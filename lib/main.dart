@@ -13,6 +13,7 @@ Scaffold：主要可以设置：
  */
 
 import 'package:flutter/material.dart';
+import 'src/router/AppRouter.dart';
 import 'src/views/startPage/StartPage.dart'; //启动页面
 import 'src/router/RouterConfig.dart';
 import 'src/views/tabNavigationBar/TabNavigationBar.dart';
@@ -83,8 +84,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       //启动APP后，进入启动页面，3秒后进入首页
       //home: TabNavigationBar(),
       //home: StartPage(),
-      //全局存储导航的状态
-      navigatorKey: GlobalKey<NavigatorState>(),
+      //全局存储导航的状态,(AppRouter可实现无Context跳转，navigatorObservers与能实现同样的效果)
+      navigatorKey: AppRouter.navigatorKey,
       //初始路由，当用户进入程序时，自动打开对应的路由
       initialRoute: RouterConfig.initialRoute,
       //路由集合。注意：配置了routes，onGenerateRoute不会执行。

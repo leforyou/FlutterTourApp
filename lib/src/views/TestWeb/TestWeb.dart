@@ -43,8 +43,7 @@ class _TestWebPageState extends State<TestWebPage> {
           // Navigator.of(context).pop(5555555555);
           // Navigator.of(context).maybePop();
           // Navigator.of(context).maybePop();
-          AppRouter.pathCloseAllPage(
-              context, '/', {"444444444": 4444444444444});
+          AppRouter.pathCloseAllPage('/', {"444444444": 4444444444444});
           //AppRouter.back(context, 'TabNavigationBar');
           // final Uri _url =
           //     Uri.parse('https://flutter.cn'); //https://cn.bing.com/

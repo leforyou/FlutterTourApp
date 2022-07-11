@@ -19,7 +19,6 @@ class _StartPageState extends State<StartPage> {
       如果这个变量没有被使用的话就不会被初始化，初始化语句不会执行。
   */
   late Timer _timer; //定时器变量
-  late BuildContext _context;
   //生命周期函数
   @override
   void initState() {
@@ -38,10 +37,8 @@ class _StartPageState extends State<StartPage> {
   void _jumpToHomePage() {
     _timer = Timer(Duration(seconds: 1), () {
       //到时回调
-      AppRouter.closeAllPage(
-        _context,
-        TabNavigationBar(currentIndex: 1), //关闭所有页面，跳转到首页
-      );
+      //关闭所有页面，跳转到首页
+      AppRouter.closeAllPage(TabNavigationBar(currentIndex: 1));
 
       //print('@@@@@@@@@@@@@@@@@  afterTimer=' + DateTime.now().toString());
     });
@@ -50,7 +47,6 @@ class _StartPageState extends State<StartPage> {
   //页面部件
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return Container(
       decoration: BoxDecoration(
         color: Colors.blue,

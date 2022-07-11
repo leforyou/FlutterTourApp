@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Object arguments = ModalRoute.of(context)?.settings.arguments ?? {};
-    print("@@@@@@@@@@@@@@@@@@@  首页 arguments  $arguments");
+    print("@@@@@@@@@@@@@@@@@@@  首页 arguments  $arguments ");
     return Scaffold(
       //appBar: AppBar(title: const Text('首页')),
       backgroundColor: Colors.amber,

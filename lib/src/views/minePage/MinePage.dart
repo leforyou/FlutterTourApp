@@ -29,7 +29,7 @@ class _MinePageState extends State<MinePage> {
           ),
           onTap: () {
             //AppRouter.pathReplace(context, '/Test1', {});
-            AppRouter.pathPush(context, '/Test1').then((value) {
+            AppRouter.pathPush('/Test1').then((value) {
               print('@@@@@@@@@@@@@@@@@@@@@@@  返回时传的参数66666 $value');
             });
             //Navigator.pushNamed(context, '/Test1', arguments: {"name": "张三"});

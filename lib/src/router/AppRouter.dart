@@ -9,8 +9,18 @@ import 'CustomPageRoute.dart';
 _AppRouter AppRouter = new _AppRouter(); //..可级联操作
 
 class _AppRouter {
+  //需要被main.dart/MaterialApp的navigatorKey引用
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
   //构造函数
-  //_AppRouter(){}
+  _AppRouter() {
+    print("_AppRouter构造函数 执行了了");
+  }
+
+  //在页面中，获取路由参数。用法：Object arguments = AppRouter.getArguments(context);
+  Object getArguments(BuildContext context) {
+    return ModalRoute.of(context)?.settings.arguments ?? {};
+  }
+
   //获取路由
   Route getRoute(BuildContext context, Widget page) {
     // print("@@@@@@@@@@@@@@@@@@@@@@@@@@@ $page");
@@ -38,12 +48,15 @@ class _AppRouter {
   //需要在main.dart/MaterialApp的routes配置链接路径。页面参数的接收：ModalRoute.of(context).settings.arguments;
   //用法：AppRouter.pathPush(context, '/HomePage', {});
   Future pathPush(
-    BuildContext context,
+    //BuildContext context,
     String routeName, [
     Map? arguments,
   ]) {
+    print(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  navigatorKey ${navigatorKey.currentContext}');
     return Navigator.pushNamed(
-      context,
+      //context,
+      navigatorKey.currentContext as BuildContext,
       routeName,
       arguments: arguments ?? {},
     );
@@ -52,12 +65,13 @@ class _AppRouter {
   //替换当前页面
   //AppRouter.pathReplace(context, '/HomePage', {});
   Future pathReplace(
-    BuildContext context,
+    //BuildContext context,
     String routeName, [
     Map? arguments,
   ]) {
     return Navigator.pushReplacementNamed(
-      context,
+      //context,
+      navigatorKey.currentContext as BuildContext,
       routeName,
       arguments: arguments ?? {},
     );
@@ -65,12 +79,13 @@ class _AppRouter {
 
   //关闭所有页面，并跳转到指定的页面，用法：AppRouter.pathCloseAllPage(context, '/');//返回首页
   pathCloseAllPage(
-    BuildContext context,
+    //BuildContext context,
     String routeName, [
     Map? arguments,
   ]) {
     return Navigator.pushNamedAndRemoveUntil(
-      context,
+      //context,
+      navigatorKey.currentContext as BuildContext,
       routeName,
       (Route) => false,
       arguments: arguments ?? {},
@@ -80,18 +95,26 @@ class _AppRouter {
   //======================================================================
 
   //跳转页面，用法：AppRouter.push(context,Page(arguments)).then((value) => null);
-  Future push(BuildContext context, Widget page) {
+  Future push(
+    //BuildContext context,
+    Widget page,
+  ) {
     return Navigator.push(
-      context,
-      getRoute(context, page),
+      //context,
+      navigatorKey.currentContext as BuildContext,
+      getRoute(navigatorKey.currentContext as BuildContext, page),
     );
   }
 
   //替换当前页面并跳转，用法：AppRouter.replace(context,Page(arguments)).then((value) => null);
-  Future replace(BuildContext context, Widget page) {
+  Future replace(
+    //BuildContext context,
+    Widget page,
+  ) {
     return Navigator.pushReplacement(
-      context,
-      getRoute(context, page),
+      //context,
+      navigatorKey.currentContext as BuildContext,
+      getRoute(navigatorKey.currentContext as BuildContext, page),
     );
   }
 
@@ -100,11 +123,15 @@ class _AppRouter {
    * 用法：AppRouter.pop(context);//返回上一个页面
    * 级联用法：AppRouter..pop(context)..pop(context,arguments);//返回上上级页面
   */
-  pop(BuildContext context, [Object? arguments]) {
+  pop(
+      //BuildContext context,
+      [
+    Object? arguments,
+  ]) {
     //return Navigator.of(context).pop(arguments);// or
-    if (Navigator.canPop(context)) {
+    if (Navigator.canPop(navigatorKey.currentContext as BuildContext)) {
       //防黑屏：Navigator.canPop(context)判断当前页面能否被弹出栈，栈内只有一个页面时为false,别的时候为true。
-      Navigator.pop(context, arguments);
+      Navigator.pop(navigatorKey.currentContext as BuildContext, arguments);
     }
     /**
      * Navigator.maybePop(context, arguments);//注意：级联使用不能连续返回。
@@ -113,9 +140,13 @@ class _AppRouter {
   }
 
   //返回多个页面，用法AppRouter.back(context, 'TabNavigationBar');//导航激活的页面。如果类名称不正确，返回黑屏。
-  back(BuildContext context, String PageClassName) {
+  back(
+    //BuildContext context,
+    String PageClassName,
+  ) {
     //PageClassName：如：HomePage/MinePage。类名称由上面【page.toString()】生成。
-    return Navigator.popUntil(context, ModalRoute.withName(PageClassName));
+    return Navigator.popUntil(navigatorKey.currentContext as BuildContext,
+        ModalRoute.withName(PageClassName));
     //方法二：级联运算符(..),返回上上级页面
     // Navigator.of(context)
     //   ..pop()
@@ -123,10 +154,14 @@ class _AppRouter {
   }
 
 //关闭所有页面，并跳转到指定的页面，用法：AppRouter.closeAllPage(context,Page(arguments));
-  closeAllPage(BuildContext context, Widget page) {
+  closeAllPage(
+    //BuildContext context,
+    Widget page,
+  ) {
     return Navigator.pushAndRemoveUntil(
-      context,
-      getRoute(context, page),
+      //context,
+      navigatorKey.currentContext as BuildContext,
+      getRoute(navigatorKey.currentContext as BuildContext, page),
       (route) => false,
     );
   }
@@ -147,4 +182,3 @@ class _AppRouter {
 //     );
 //   }
 // }
-

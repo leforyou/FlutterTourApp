@@ -3,14 +3,22 @@ import 'package:flutter/cupertino.dart';
 
 import '../views/tabNavigationBar/TabNavigationBar.dart';
 import '/src/views/startPage/StartPage.dart';
-import '/src/views/homePage/HomePage.dart';
-import '/src/views/minePage/MinePage.dart';
+// import '/src/views/homePage/HomePage.dart';
+// import '/src/views/minePage/MinePage.dart';
 
 import 'package:flutter_app_study/src/views/Test1/Test1.dart';
 import 'package:flutter_app_study/src/views/TestWeb/TestWeb.dart';
 
-/**
- * 注意：未在main.dart/MaterialApp的routes配置使用，原因页面跳转动画不能自定义
+/*
+  路由导航：
+    直接通过类名跳转，跳转动作分散在各个类的内部。
+    界面间传递数据必须放在目标类的构造方法内。
+
+   命名路由：
+    所有路由都放到一个地方进行注册，一目了然。
+    界面间传递数据是通过方法参数传递过去的。
+    如果在业务场景中必须实时创建一些类的路由，构造方法内的数据是业务关联的，那么命名路由就不太合适了。
+    因此根据自己的实用场景进行选择，最好不要混用，而是只选择一种使用，我个人倾向于使用命名路由，方便管理。
  */
 class RouterConfig {
   //路由配置
@@ -30,8 +38,10 @@ class RouterConfig {
     return {
       '/': (context) => TabNavigationBar(currentIndex: 0),
       '/StartPage': (context) => StartPage(),
-      '/HomePage': (context) => HomePage(),
-      '/MinePage': (context) => MinePage(),
+      '/HomePage': (context) => TabNavigationBar(currentIndex: 0),
+      //'/HomePage': (context) => HomePage(),
+      '/MinePage': (context) => TabNavigationBar(currentIndex: 1),
+      //'/MinePage': (context) => MinePage(),
       '/Test1': (context) => Test1Page(),
       '/TestWeb': (context) => TestWebPage(),
     };
@@ -49,11 +59,11 @@ class RouterConfig {
 
     if (builder != null) {
       return CupertinoPageRoute(
-        builder: builder,
+        builder: ((context) => builder(context)),
         settings: settings,
       ); //此处将参数传递给 ModalRoute.of(context)?.settings.arguments; 【Map arguments = ModalRoute.of(context)?.settings.arguments as Map;】【final String message = ModalRoute.of(context)?.settings.arguments as String;】
     }
-    throw new Exception("onGenerateRoute异常:路径匹配不到,builder变量为空,导致返回为null!");
+    throw new Exception("onGenerateRoute异常:路径/名称匹配不到,builder变量为空,导致返回为null!");
   }
 
   //404页面处理---可在main.dart/MaterialApp的部件未知路由配置

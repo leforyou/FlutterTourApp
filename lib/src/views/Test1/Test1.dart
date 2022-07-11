@@ -41,7 +41,7 @@ class _Test1PageState extends State<Test1Page> {
         ),
         onTap: () {
           //AppRouter.push(context, TabNavigationBar(currentIndex: 0));
-          AppRouter.push(context, TestWebPage());
+          AppRouter.push(TestWebPage());
           //return;
           // Navigator.push(context,
           //     new MaterialPageRoute(builder: (context) => TestWebPage()));
