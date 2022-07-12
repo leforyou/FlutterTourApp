@@ -49,6 +49,8 @@ class _AppRouter {
     //     : CustomPageRoute(page, 0);
   }
 
+  //===========================================================================
+
   //需要在main.dart/MaterialApp的routes配置链接路径。页面参数的接收：ModalRoute.of(context).settings.arguments;
   //用法：AppRouter.pathPush(context, '/HomePage', {});
   Future pathPush(
@@ -120,6 +122,21 @@ class _AppRouter {
     );
   }
 
+//关闭所有页面，并跳转到指定的页面，用法：AppRouter.closeAllPage(Page(arguments));
+  closeAllPage(
+    //BuildContext context,
+    Widget page,
+  ) {
+    return Navigator.pushAndRemoveUntil(
+      //context,
+      currentContext,
+      getRoute(currentContext, page),
+      (route) => false,
+    );
+  }
+
+  //========================================================================
+
   /**
    * 返回上一个页面(销毁当前页面)或返回多个页面
    * 用法：AppRouter.pop();AppRouter.pop(1,arguments);//返回上一个页面
@@ -157,18 +174,5 @@ class _AppRouter {
     // Navigator.of(context)
     //   ..pop()
     //   ..pop(arguments);
-  }
-
-//关闭所有页面，并跳转到指定的页面，用法：AppRouter.closeAllPage(Page(arguments));
-  closeAllPage(
-    //BuildContext context,
-    Widget page,
-  ) {
-    return Navigator.pushAndRemoveUntil(
-      //context,
-      currentContext,
-      getRoute(currentContext, page),
-      (route) => false,
-    );
   }
 }
