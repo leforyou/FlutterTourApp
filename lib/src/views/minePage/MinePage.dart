@@ -8,7 +8,7 @@ class MinePage extends StatefulWidget {
   final _MinePageState instance = _MinePageState(); //初始化实例
 
   @override
-  State<StatefulWidget> createState() => instance;
+  State<StatefulWidget> createState() => _MinePageState();
 
   //可从另一个外部类调用有状态Widgets状态类中的函数
   _MinePageState getInstance() => instance;
@@ -29,7 +29,7 @@ class _MinePageState extends State<MinePage> {
           ),
           onTap: () {
             //AppRouter.pathReplace(context, '/Test1', {});
-            AppRouter.pathPush('/Test1').then((value) {
+            AppRouter.pathPush('/Test1', 88788).then((value) {
               print('@@@@@@@@@@@@@@@@@@@@@@@  返回时传的参数66666 $value');
             });
             //Navigator.pushNamed(context, '/Test1', arguments: {"name": "张三"});

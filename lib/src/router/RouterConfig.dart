@@ -49,7 +49,7 @@ class RouterConfig {
 
   //main.dart/MaterialApp部件的拦截器onGenerateRoute，匹配不到链接调用
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    //print('====onGenerateRoute ================ 888888888888888 $settings');
+    print('====onGenerateRoute ================ 888888888888888 $settings');
     final String name = settings.name ?? '';
     //final arguments = settings.arguments ?? '';
     //print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@：name $name ${settings.arguments}');
@@ -62,7 +62,10 @@ class RouterConfig {
         builder: ((context) => builder(context)),
         settings: settings,
       ); //此处将参数传递给 ModalRoute.of(context)?.settings.arguments; 【Map arguments = ModalRoute.of(context)?.settings.arguments as Map;】【final String message = ModalRoute.of(context)?.settings.arguments as String;】
+    } else {
+      //404页面处理
     }
+
     throw new Exception("onGenerateRoute异常:路径/名称匹配不到,builder变量为空,导致返回为null!");
   }
 

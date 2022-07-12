@@ -21,13 +21,14 @@ class _Test1PageState extends State<Test1Page> {
   @override
   void initState() {
     //DevicesUtils a = DevicesUtils();
-    print("@@@@@@@@@@@@@@@@@@@ Test1Page   initState函数被调用了");
+    var aaaa = AppRouter.getArguments();
+    print("@@@@@@@@@@@@@@@@@@@ Test1Page   initState函数被调用了   ===== $aaaa");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    var arguments = ModalRoute.of(context)?.settings.arguments;
     print("@@@@@@@@@@@@@@@@@@@ arguments  $arguments");
     return Scaffold(
       appBar: AppBar(title: Text('Test1')),

@@ -27,12 +27,18 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
   */
 
-  List<Widget> allPages = [HomePage(), MinePage()]; //方法一
+  List allPages = [HomePage(), MinePage()]; //方法一
   late int _currentIndex;
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.currentIndex;
+  }
+
+  List<Widget> get getListPageWidget {
+    List<Widget> arr = [];
+    allPages.forEach((element) => arr.add(element));
+    return arr;
   }
 
   @override
@@ -43,7 +49,7 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
       //方法二（保持页面状态）
       body: IndexedStack(
         index: _currentIndex,
-        children: allPages,
+        children: getListPageWidget,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -96,13 +102,13 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
         ],
         onTap: (index) {
           setState(() {
-            print("the index is :$index");
             _currentIndex = index;
-            if (_currentIndex == 0) {
-              dynamic _page = allPages[_currentIndex];
-              // print(
-              //     "-------------------------_page.runtimeType ${_page.runtimeType}   ${_page.getInstance.SwitchRefresh}");
-              _page?.getInstance()?.SwitchRefresh();
+            try {
+              //运行异常处理
+              var _page = allPages[_currentIndex];
+              _page.getInstance().SwitchRefresh();
+            } catch (e) {
+              print("导航页面，找不到相应的方法:$e");
             }
           });
         },

@@ -92,12 +92,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       //routes: RouterConfig.routes(),
       //当初home或者 initialRoute路由的名字写错、为空时，或者下面的路由找不到页面了， onGenerateRoute强制创建一个路由页面，默认连接到新的路由页面上
       onGenerateRoute: RouterConfig.onGenerateRoute,
-      // onGenerateRoute: (RouteSettings settings) {
-      //   print("========================路由管理拦截器-----onGenerateRoute $settings");
-      //   return null;
-      //   //return RouterConfig.onGenerateRoute;
-      // },
       //未知路由 当onGenerateRoute无法生成路由时调用，当通过Nacigator.of(context).pushNamed();跳转路由时，在routes查找不到时，会调用该方法
+      //onUnknownRoute: RouterConfig.onUnknownRoute,//它与routes结合使用
       onUnknownRoute: (RouteSettings settings) {
         print("@@@@@@@@@@@@@@@@@@页面404-----onUnknownRoute $settings");
         return null;
