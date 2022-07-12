@@ -34,16 +34,16 @@ class _TestWebPageState extends State<TestWebPage> {
           // Navigator.of(context)
           //   ..pop()
           //   ..pop('66666666666666666');
+          AppRouter.pop(2, {"fdfefer": 9934});
           // AppRouter
-          //   ..pop(context, 999991)
-          //   ..pop(context, 99999299)
-          //   ..pop(context, 999993)
-          //   ..pop(context, 88888);
+          //   ..pop()
+          //   ..pop()
+          //   ..pop(null, {"aaaaaa": 9999999});
           // Navigator.of(context).maybePop(88888888888888);
           // Navigator.of(context).pop(5555555555);
           // Navigator.of(context).maybePop();
           // Navigator.of(context).maybePop();
-          AppRouter.pathCloseAllPage('/', {"444444444": 4444444444444});
+          //AppRouter.pathCloseAllPage('/', {"444444444": 4444444444444});
           //AppRouter.back(context, 'TabNavigationBar');
           // final Uri _url =
           //     Uri.parse('https://flutter.cn'); //https://cn.bing.com/

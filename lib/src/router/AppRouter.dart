@@ -11,6 +11,10 @@ _AppRouter AppRouter = new _AppRouter(); //..可级联操作
 class _AppRouter {
   //需要被main.dart/MaterialApp的navigatorKey引用
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  BuildContext get currentContext {
+    return navigatorKey.currentContext as BuildContext;
+  }
+
   //构造函数
   _AppRouter() {
     print("_AppRouter构造函数 执行了了");
@@ -52,11 +56,9 @@ class _AppRouter {
     String routeName, [
     Map? arguments,
   ]) {
-    print(
-        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  navigatorKey ${navigatorKey.currentContext}');
     return Navigator.pushNamed(
       //context,
-      navigatorKey.currentContext as BuildContext,
+      currentContext,
       routeName,
       arguments: arguments ?? {},
     );
@@ -71,7 +73,7 @@ class _AppRouter {
   ]) {
     return Navigator.pushReplacementNamed(
       //context,
-      navigatorKey.currentContext as BuildContext,
+      currentContext,
       routeName,
       arguments: arguments ?? {},
     );
@@ -85,7 +87,7 @@ class _AppRouter {
   ]) {
     return Navigator.pushNamedAndRemoveUntil(
       //context,
-      navigatorKey.currentContext as BuildContext,
+      currentContext,
       routeName,
       (Route) => false,
       arguments: arguments ?? {},
@@ -101,8 +103,8 @@ class _AppRouter {
   ) {
     return Navigator.push(
       //context,
-      navigatorKey.currentContext as BuildContext,
-      getRoute(navigatorKey.currentContext as BuildContext, page),
+      currentContext,
+      getRoute(currentContext, page),
     );
   }
 
@@ -113,25 +115,29 @@ class _AppRouter {
   ) {
     return Navigator.pushReplacement(
       //context,
-      navigatorKey.currentContext as BuildContext,
-      getRoute(navigatorKey.currentContext as BuildContext, page),
+      currentContext,
+      getRoute(currentContext, page),
     );
   }
 
   /**
    * 返回上一个页面(销毁当前页面)或返回多个页面
-   * 用法：AppRouter.pop(context);//返回上一个页面
-   * 级联用法：AppRouter..pop(context)..pop(context,arguments);//返回上上级页面
+   * 用法：AppRouter.pop();AppRouter.pop(1,arguments);//返回上一个页面
+   * 级联用法：AppRouter..pop()..pop(null,{});//返回上上级页面
+   * 多次返回 AppRouter.pop(3);
   */
   pop(
       //BuildContext context,
       [
-    Object? arguments,
+    int? count, //返回的次数
+    Map? arguments,
   ]) {
     //return Navigator.of(context).pop(arguments);// or
-    if (Navigator.canPop(navigatorKey.currentContext as BuildContext)) {
-      //防黑屏：Navigator.canPop(context)判断当前页面能否被弹出栈，栈内只有一个页面时为false,别的时候为true。
-      Navigator.pop(navigatorKey.currentContext as BuildContext, arguments);
+    for (var i = 0; i < (count ?? 1); i++) {
+      if (Navigator.canPop(currentContext)) {
+        //防黑屏：Navigator.canPop(context)判断当前页面能否被弹出栈，栈内只有一个页面时为false,别的时候为true。
+        Navigator.pop(currentContext, arguments ?? {});
+      }
     }
     /**
      * Navigator.maybePop(context, arguments);//注意：级联使用不能连续返回。
@@ -145,8 +151,8 @@ class _AppRouter {
     String PageClassName,
   ) {
     //PageClassName：如：HomePage/MinePage。类名称由上面【page.toString()】生成。
-    return Navigator.popUntil(navigatorKey.currentContext as BuildContext,
-        ModalRoute.withName(PageClassName));
+    return Navigator.popUntil(
+        currentContext, ModalRoute.withName(PageClassName));
     //方法二：级联运算符(..),返回上上级页面
     // Navigator.of(context)
     //   ..pop()
@@ -160,25 +166,9 @@ class _AppRouter {
   ) {
     return Navigator.pushAndRemoveUntil(
       //context,
-      navigatorKey.currentContext as BuildContext,
-      getRoute(navigatorKey.currentContext as BuildContext, page),
+      currentContext,
+      getRoute(currentContext, page),
       (route) => false,
     );
   }
-
-  //404页面---可在main.dart/MaterialApp的onUnknownRoute中使用，return AppRouter.unKnownRoute(result);
-  //  RouteFactory unKnownRoute = (result) {
-  //   return MaterialPageRoute(builder: (BuildContext context) => UnknownPage());
-  // };
 }
-
-//404页面
-// class UnknownPage extends StatelessWidget {
-//   const UnknownPage({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Center(child: Text('404')),
-//     );
-//   }
-// }

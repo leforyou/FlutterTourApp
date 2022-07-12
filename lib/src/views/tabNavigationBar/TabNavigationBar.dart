@@ -100,6 +100,8 @@ class _TabNavigationBarState extends State<TabNavigationBar> {
             _currentIndex = index;
             if (_currentIndex == 0) {
               dynamic _page = allPages[_currentIndex];
+              // print(
+              //     "-------------------------_page.runtimeType ${_page.runtimeType}   ${_page.getInstance.SwitchRefresh}");
               _page?.getInstance()?.SwitchRefresh();
             }
           });
